@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\OrganizationController;
+
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
+
+Route::resource('organization', OrganizationController::class);
+Route::resource('location', 'LocationController');
+Route::resource('layout', 'LayoutController');

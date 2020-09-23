@@ -2,83 +2,100 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class OrganizationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+	public function index()
+	{
+		$organization = Organization::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+		return View::make('organization.index')->with('organization', $organization);
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+	public function create()
+	{
+		return View::make('organization.create');
+	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+	public function store(Request $request)
+	{
+		$rules = array(
+			'name' => 'required',
+		);
+		$validator = Validator::make($request->all(), $rules);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+		// process the login
+		if ($validator->fails())
+		{
+			return Redirect::to('organization/create')->withErrors($validator);
+		}
+		else
+		{
+			// store
+			$organization = new Organization;
+			$organization->name = $request->input('name');
+			$organization->guid = Str::uuid()->toString();
+			$organization->save();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+			// redirect
+			Session::flash('message', 'Successfully created organization!');
+			return Redirect::to('organization');
+		}
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+	public function show($id)
+	{
+		$organization = Organization::find($id);
+
+		return View::make('organization.show')->with('organization', $organization);
+	}
+
+	public function edit($id)
+	{
+		$organization = Organization::find($id);
+
+		return View::make('organization.edit')->with('organization', $organization);
+	}
+
+	public function update(Request $request, $id)
+	{
+		$rules = array(
+			'name' => 'required',
+		);
+		$validator = Validator::make($request->all(), $rules);
+
+		// process the login
+		if ($validator->fails())
+		{
+			return Redirect::to('organization/' . $id . '/edit')->withErrors($validator);
+		}
+		else
+		{
+			// store
+			$shark = Organization::find($id);
+			$shark->name = $request->input('name');
+			$shark->save();
+
+			// redirect
+			Session::flash('message', 'Successfully updated organization!');
+			return Redirect::to('organization');
+		}
+	}
+
+	public function destroy($id)
+	{
+		$shark = Organization::find($id);
+		$shark->delete();
+
+		// redirect
+		Session::flash('message', 'Successfully deleted the organization!');
+		return Redirect::to('organization');
+	}
 }
