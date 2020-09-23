@@ -1,0 +1,23 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateOrganizationTable extends Migration
+{
+	public function up()
+	{
+		Schema::create('organization', function (Blueprint $table) {
+			$table->id();
+			$table->string('name');
+			$table->uuid('guid');
+			$table->timestamps();
+		});
+	}
+
+	public function down()
+	{
+		Schema::dropIfExists('organization');
+	}
+}
