@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class UserManagerController extends Controller
 {
 	public function index()
 	{
-		$user = User::where('idrole','!=',1)->get();
+		$user = User::where('idrole','=',2)->get();
 
 		return View::make('cruds.user.index')->with('user', $user);
 	}
