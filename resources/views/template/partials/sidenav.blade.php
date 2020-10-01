@@ -21,10 +21,13 @@
 
 						<ul class="nav-second-level" aria-expanded="false">
 							<li>
-								<a href="/manage/organizations/index">Organization</a>
+								<a href="/manage/organization">Organization</a>
 							</li>
 							<li>
-								<a href="/manage/options/index">Options</a>
+								<a href="/manage/location">Location</a>
+							</li>
+							<li>
+								<a href="/manage/layout">Layout</a>
 							</li>
 						</ul>
 					</li>

@@ -14,11 +14,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\LayoutController;
+use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-	return view('welcome');
+Route::group(['prefix' => 'manage',  'middleware' => 'auth'], function()
+{
+	Route::resource('organization', OrganizationController::class);
+	Route::resource('location', LocationController::class);
+	Route::resource('layout', LayoutController::class);
+	Route::resource('user', UserController::class);
 });
 
-Route::resource('organization', OrganizationController::class);
-Route::resource('location', 'LocationController');
-Route::resource('layout', 'LayoutController');
+Auth::routes([
+	'register' => false,
+	'verify' => false,
+]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');

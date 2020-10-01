@@ -16,12 +16,12 @@ class OrganizationController extends Controller
 	{
 		$organization = Organization::all();
 
-		return View::make('organization.index')->with('organization', $organization);
+		return View::make('cruds.organization.index')->with('organization', $organization);
 	}
 
 	public function create()
 	{
-		return View::make('organization.create');
+		return View::make('cruds.organization.create');
 	}
 
 	public function store(Request $request)
@@ -31,22 +31,19 @@ class OrganizationController extends Controller
 		);
 		$validator = Validator::make($request->all(), $rules);
 
-		// process the login
 		if ($validator->fails())
 		{
-			return Redirect::to('organization/create')->withErrors($validator);
+			return Redirect::to('manage/organization/create')->withErrors($validator);
 		}
 		else
 		{
-			// store
 			$organization = new Organization;
 			$organization->name = $request->input('name');
 			$organization->guid = Str::uuid()->toString();
 			$organization->save();
 
-			// redirect
 			Session::flash('message', 'Successfully created organization!');
-			return Redirect::to('organization');
+			return Redirect::to('manage/organization');
 		}
 	}
 
@@ -54,14 +51,14 @@ class OrganizationController extends Controller
 	{
 		$organization = Organization::find($id);
 
-		return View::make('organization.show')->with('organization', $organization);
+		return View::make('cruds.organization.show')->with('organization', $organization);
 	}
 
 	public function edit($id)
 	{
 		$organization = Organization::find($id);
 
-		return View::make('organization.edit')->with('organization', $organization);
+		return View::make('cruds.organization.edit')->with('organization', $organization);
 	}
 
 	public function update(Request $request, $id)
@@ -71,31 +68,27 @@ class OrganizationController extends Controller
 		);
 		$validator = Validator::make($request->all(), $rules);
 
-		// process the login
 		if ($validator->fails())
 		{
-			return Redirect::to('organization/' . $id . '/edit')->withErrors($validator);
+			return Redirect::to('manage/organization/' . $id . '/edit')->withErrors($validator);
 		}
 		else
 		{
-			// store
-			$shark = Organization::find($id);
-			$shark->name = $request->input('name');
-			$shark->save();
+			$organization = Organization::find($id);
+			$organization->name = $request->input('name');
+			$organization->save();
 
-			// redirect
 			Session::flash('message', 'Successfully updated organization!');
-			return Redirect::to('organization');
+			return Redirect::to('manage/organization');
 		}
 	}
 
 	public function destroy($id)
 	{
-		$shark = Organization::find($id);
-		$shark->delete();
+		$organization = Organization::find($id);
+		$organization->delete();
 
-		// redirect
 		Session::flash('message', 'Successfully deleted the organization!');
-		return Redirect::to('organization');
+		return Redirect::to('manage/organization');
 	}
 }

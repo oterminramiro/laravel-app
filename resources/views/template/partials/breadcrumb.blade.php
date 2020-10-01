@@ -2,6 +2,7 @@
 	<div class="col-md-12">
 		<nav aria-label="breadcrumb" class="float-right mt-1">
 			<ol class="breadcrumb">
+				<li class="breadcrumb-item active" aria-current="page"><a href="/">Index</a></li>
 				<?php if(isset($breadcrumb)): ?>
 					<li class="breadcrumb-item"><a href="">Manage</a></li>
 					<li class="breadcrumb-item"><a href="/manage/options/index">Options</a></li>
@@ -34,15 +35,18 @@
 					<?php $url = Request::getRequestUri() ?>
 					<?php $url = explode('/',$url) ?>
 					<?php foreach($url as $key => $item): ?>
-						<?php if($key === array_key_last($url)): ?>
-							<li class="breadcrumb-item active" aria-current="page"><?php echo ucfirst($item) ?></li>
-						<?php else: ?>
-							<li class="breadcrumb-item"><a href=""><?php echo ucfirst($item) ?></a></li>
+						<?php if($key != 0): ?>
+							<?php if($key === array_key_last($url)): ?>
+								<?php $title = ucfirst($item) ?>
+								<li class="breadcrumb-item active" aria-current="page"><?php echo ucfirst($item) ?></li>
+							<?php else: ?>
+								<li class="breadcrumb-item"><a href=""><?php echo ucfirst($item) ?></a></li>
+							<?php endif ?>
 						<?php endif ?>
 					<?php endforeach ?>
 				<?php endif ?>
 			</ol>
 		</nav>
-		<h4 class="mb-1 mt-0">Title</h4>
+		<h4 class="mb-1 mt-0"><?php echo $title ?></h4>
 	</div>
 </div>

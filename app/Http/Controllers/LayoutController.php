@@ -2,83 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Layout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class LayoutController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+	public function index()
+	{
+		$layout = Layout::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+		return View::make('cruds.layout.index')->with('layout', $layout);
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+	public function show($id)
+	{
+		$layout = Layout::find($id);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+		return View::make('cruds.layout.show')->with('layout', $layout);
+	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+	public function edit($id)
+	{
+		$layout = Layout::find($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+		return View::make('cruds.layout.edit')->with('layout', $layout);
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+	public function update(Request $request, $id)
+	{
+		$rules = array(
+			'name' => 'required',
+			'available' => 'required',
+		);
+		$validator = Validator::make($request->all(), $rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::to('manage/layout/' . $id . '/edit')->withErrors($validator);
+		}
+		else
+		{
+			$shark = Layout::find($id);
+			$shark->name = $request->input('name');
+			$shark->available = $request->input('available');
+			$shark->save();
+
+			Session::flash('message', 'Successfully updated layout!');
+			return Redirect::to('manage/layout');
+		}
+	}
 }
