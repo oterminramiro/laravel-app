@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+#
+use App\Tables\UsersTable;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -15,9 +16,12 @@ class UserManagerController extends Controller
 {
 	public function index()
 	{
-		$user = User::where('idrole','=',2)->get();
+		#$user = User::where('idrole','=',2)->get();
 
-		return View::make('cruds.user.index')->with('user', $user);
+		#return View::make('cruds.user.index')->with('user', $user);
+
+		$user = (new UsersTable)->setup();
+		return View::make('cruds.user.index')->with('user',$user);
 	}
 
 	public function create()
