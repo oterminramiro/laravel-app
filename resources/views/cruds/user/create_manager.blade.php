@@ -8,7 +8,7 @@
 		{{ $error }}
 	@endforeach
 
-	<form method="post" action="/manage/user/">
+	<form method="post" action="/manage/users/managers/">
 		@csrf
 		<div class="form-group">
 			<label>Name</label>

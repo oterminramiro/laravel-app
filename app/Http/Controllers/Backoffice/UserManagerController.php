@@ -16,17 +16,13 @@ class UserManagerController extends Controller
 {
 	public function index()
 	{
-		#$user = User::where('idrole','=',2)->get();
-
-		#return View::make('cruds.user.index')->with('user', $user);
-
 		$user = (new UsersTable)->setup();
 		return View::make('cruds.user.index')->with('user',$user);
 	}
 
 	public function create()
 	{
-		return View::make('cruds.user.create');
+		return View::make('cruds.user.create_manager');
 	}
 
 	public function store(Request $request)
@@ -39,7 +35,7 @@ class UserManagerController extends Controller
 
 		if ($validator->fails())
 		{
-			return Redirect::to('manage/user/create')->withErrors($validator);
+			return Redirect::to('manage/users/managers/create')->withErrors($validator);
 		}
 		else
 		{
@@ -54,7 +50,7 @@ class UserManagerController extends Controller
 			$user->save();
 
 			Session::flash('message', 'Successfully created user!');
-			return Redirect::to('manage/user');
+			return Redirect::to('manage/users/managers');
 		}
 	}
 
@@ -69,7 +65,7 @@ class UserManagerController extends Controller
 	{
 		$user = User::find($id);
 
-		return View::make('cruds.user.edit')->with('user', $user);
+		return View::make('cruds.user.edit_manager')->with('user', $user);
 	}
 
 	public function update(Request $request, $id)
@@ -81,7 +77,7 @@ class UserManagerController extends Controller
 
 		if ($validator->fails())
 		{
-			return Redirect::to('manage/user/' . $id . '/edit')->withErrors($validator);
+			return Redirect::to('manage/users/managers/' . $id . '/edit')->withErrors($validator);
 		}
 		else
 		{
@@ -90,7 +86,7 @@ class UserManagerController extends Controller
 			$user->save();
 
 			Session::flash('message', 'Successfully updated user!');
-			return Redirect::to('manage/user');
+			return Redirect::to('manage/users/managers');
 		}
 	}
 
@@ -100,6 +96,6 @@ class UserManagerController extends Controller
 		$user->delete();
 
 		Session::flash('message', 'Successfully deleted the user!');
-		return Redirect::to('manage/user');
+		return Redirect::to('manage/users/managers');
 	}
 }

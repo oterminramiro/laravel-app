@@ -2,22 +2,21 @@
 
 @section('content')
 
-	<h1>Edit {{ $user->name }}</h1>
+	<h1>Create a user</h1>
 
 	@foreach ($errors->all() as $error)
 		{{ $error }}
 	@endforeach
 
-	<form method="post" action="/manage/user/{{ $user->id }}/">
-		@method('PUT')
+	<form method="post" action="/manage/users/operators/">
 		@csrf
 		<div class="form-group">
 			<label>Name</label>
-			<input type="text" class="form-control" name="name" id="name" value="{{ $user->name }}">
+			<input type="text" class="form-control" name="name" id="name">
 		</div>
 		<div class="form-group">
 			<label>Email</label>
-			<input type="text" class="form-control" name="email" id="email" value="{{ $user->email }}">
+			<input type="email" class="form-control" name="email" id="email">
 		</div>
 
 		<input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">

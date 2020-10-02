@@ -22,7 +22,7 @@ class UserOperatorController extends Controller
 
 	public function create()
 	{
-		return View::make('cruds.user.create');
+		return View::make('cruds.user.create_operator');
 	}
 
 	public function store(Request $request)
@@ -35,7 +35,7 @@ class UserOperatorController extends Controller
 
 		if ($validator->fails())
 		{
-			return Redirect::to('manage/user/create')->withErrors($validator);
+			return Redirect::to('manage/users/operators/create')->withErrors($validator);
 		}
 		else
 		{
@@ -50,7 +50,7 @@ class UserOperatorController extends Controller
 			$user->save();
 
 			Session::flash('message', 'Successfully created user!');
-			return Redirect::to('manage/user');
+			return Redirect::to('manage/users/operators');
 		}
 	}
 
@@ -65,7 +65,7 @@ class UserOperatorController extends Controller
 	{
 		$user = User::find($id);
 
-		return View::make('cruds.user.edit')->with('user', $user);
+		return View::make('cruds.user.edit_operator')->with('user', $user);
 	}
 
 	public function update(Request $request, $id)
@@ -77,7 +77,7 @@ class UserOperatorController extends Controller
 
 		if ($validator->fails())
 		{
-			return Redirect::to('manage/user/' . $id . '/edit')->withErrors($validator);
+			return Redirect::to('manage/users/operators/' . $id . '/edit')->withErrors($validator);
 		}
 		else
 		{
@@ -86,7 +86,7 @@ class UserOperatorController extends Controller
 			$user->save();
 
 			Session::flash('message', 'Successfully updated user!');
-			return Redirect::to('manage/user');
+			return Redirect::to('manage/users/operators');
 		}
 	}
 
@@ -96,6 +96,6 @@ class UserOperatorController extends Controller
 		$user->delete();
 
 		Session::flash('message', 'Successfully deleted the user!');
-		return Redirect::to('manage/user');
+		return Redirect::to('manage/users/operators');
 	}
 }

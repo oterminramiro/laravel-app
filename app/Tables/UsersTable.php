@@ -11,6 +11,9 @@ class UsersTable extends AbstractTable
 	protected function table(): Table
 	{
 		return (new Table)->model(User::class)
+			->query(function ($query) {
+				$query->where('idrole', 2);
+			})
 			->routes([
 				'index'   => ['name' => 'managers.index'],
 				'create'  => ['name' => 'managers.create'],
