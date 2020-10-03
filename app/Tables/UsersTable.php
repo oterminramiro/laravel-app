@@ -4,6 +4,7 @@ namespace App\Tables;
 
 use App\Models\User;
 use Okipa\LaravelTable\Abstracts\AbstractTable;
+use Illuminate\Database\Eloquent\Builder;
 use Okipa\LaravelTable\Table;
 
 class UsersTable extends AbstractTable
@@ -11,7 +12,7 @@ class UsersTable extends AbstractTable
 	protected function table(): Table
 	{
 		return (new Table)->model(User::class)
-			->query(function ($query) {
+			->query(function (Builder $query) {
 				$query->where('idrole', 2);
 			})
 			->routes([
