@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tables\UsersOperatorTable;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -15,9 +16,8 @@ class UserOperatorController extends Controller
 {
 	public function index()
 	{
-		$user = User::where('idrole','=',3)->get();
-
-		return View::make('cruds.user.index')->with('user', $user);
+		$user = (new UsersOperatorTable)->setup();
+		return View::make('cruds.user.index')->with('user',$user);
 	}
 
 	public function create()

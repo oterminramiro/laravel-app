@@ -7,7 +7,7 @@ use Okipa\LaravelTable\Abstracts\AbstractTable;
 use Illuminate\Database\Eloquent\Builder;
 use Okipa\LaravelTable\Table;
 
-class UsersTable extends AbstractTable
+class UsersManagerTable extends AbstractTable
 {
 	protected function table(): Table
 	{
