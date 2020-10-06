@@ -43,6 +43,11 @@
 
 						@yield('content')
 
+						@if ( Helper::checkRole(['ADMIN','MANAGER']) )
+							{!! Helper::shout('this is how to use autoloading correctly!!') !!}
+						@else
+							<span>else</span>
+						@endif
 					</div>
 				</div>
 

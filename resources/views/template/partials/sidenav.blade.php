@@ -20,9 +20,11 @@
 						</a>
 
 						<ul class="nav-second-level" aria-expanded="false">
+							@if ( Helper::checkRole(['ADMIN']) )
 							<li>
 								<a href="/manage/organizations">Organization</a>
 							</li>
+							@endif
 							<li>
 								<a href="/manage/locations">Location</a>
 							</li>
@@ -31,6 +33,7 @@
 							</li>
 						</ul>
 					</li>
+					@if ( Helper::checkRole(['ADMIN','MANAGER']) )
 					<li>
 						<a href="javascript: void(0);">
 							<i data-feather="users"></i>
@@ -47,6 +50,7 @@
 							</li>
 						</ul>
 					</li>
+					@endif
 				</ul>
 			</div>
 		</nav>
