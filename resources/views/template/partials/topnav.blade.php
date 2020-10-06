@@ -62,14 +62,10 @@
 
 					<div class="dropdown-divider"></div>
 
-					<a href="{{ route('logout') }}" class="dropdown-item notify-item"
-					onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+					<a href="{{ route('logout') }}" class="dropdown-item notify-item">
 						<i data-feather="log-out" class="icon-dual icon-xs mr-2"></i>
 						<span>Logout</span>
 					</a>
-					<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-						@csrf
-					</form>
 				</div>
 			</li>
 			@endauth

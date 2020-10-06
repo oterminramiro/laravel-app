@@ -35,6 +35,15 @@ class UsersOperatorTable extends AbstractTable
 		$table->column('email')->title('Email')->sortable()->searchable();
 		$table->column('created_at')->title('Created')->dateTimeFormat('d/m/Y H:i')->sortable();
 		$table->column('updated_at')->title('Updated')->dateTimeFormat('d/m/Y H:i')->sortable();
+		$table->column('guid')
+		->title('Login as')
+		#->prependHtml('<i class="fas fa-envelope"></i>')
+		->link(function(User $user) {
+			return route('login_as', $user->guid);
+		})
+		->value(function(User $user) {
+			return 'Login';
+		});
 	}
 
 	protected function resultLines(Table $table): void

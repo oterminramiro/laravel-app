@@ -18,6 +18,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\UserManagerController;
 use App\Http\Controllers\UserOperatorController;
+use App\Http\Controllers\AccountController;
 
 Route::group(['prefix' => 'manage',  'middleware' => 'auth'], function()
 {
@@ -28,13 +29,17 @@ Route::group(['prefix' => 'manage',  'middleware' => 'auth'], function()
 	{
 		Route::resource('managers', UserManagerController::class);
 		Route::resource('operators', UserOperatorController::class);
+		Route::get('/login_as/{guid:slug}', [AccountController::class, 'login_as'])->name('login_as');
+		Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
 	});
 });
 
 Auth::routes([
 	'register' => false,
 	'verify' => false,
+	'logout' => false,
 ]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/log_as', [App\Http\Controllers\HomeController::class, 'log_as'])->name('log_as');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
