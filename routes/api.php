@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\MainController;
+
+Route::group(['prefix' => 'customers'], function(){
+	Route::get('/index', [CustomerController::class, 'index']);
+	Route::post('/create', [CustomerController::class, 'create']);
+});
+
+Route::group(['prefix' => 'main'], function(){
+	Route::get('/get_organizations', [MainController::class, 'get_organizations']);
+	Route::get('/get_locations', [MainController::class, 'get_locations']);
+	Route::get('/get_layouts', [MainController::class, 'get_layouts']);
 });
