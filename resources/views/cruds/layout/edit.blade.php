@@ -8,7 +8,7 @@
 		{{ $error }}
 	@endforeach
 
-	<form method="post" action="/manage/layout/{{ $layout->id }}/">
+	<form method="post" action="/manage/layouts/{{ $layout->id }}/">
 		@method('PUT')
 		@csrf
 		<div class="form-group">

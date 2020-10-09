@@ -37,7 +37,7 @@ class LocationController extends Controller
 
 		if ($validator->fails())
 		{
-			return Redirect::to('manage/location/create')->withErrors($validator);
+			return Redirect::to('manage/locations/create')->withErrors($validator);
 		}
 		else
 		{
@@ -64,7 +64,7 @@ class LocationController extends Controller
 			}
 
 			Session::flash('message', 'Successfully created location!');
-			return Redirect::to('manage/location');
+			return Redirect::to('manage/locations');
 		}
 	}
 
@@ -91,7 +91,7 @@ class LocationController extends Controller
 
 		if ($validator->fails())
 		{
-			return Redirect::to('manage/location/' . $id . '/edit')->withErrors($validator);
+			return Redirect::to('manage/locations/' . $id . '/edit')->withErrors($validator);
 		}
 		else
 		{
@@ -100,7 +100,7 @@ class LocationController extends Controller
 			$location->save();
 
 			Session::flash('message', 'Successfully updated location!');
-			return Redirect::to('manage/location');
+			return Redirect::to('manage/locations');
 		}
 	}
 
@@ -110,6 +110,6 @@ class LocationController extends Controller
 		$location->delete();
 
 		Session::flash('message', 'Successfully deleted the location!');
-		return Redirect::to('manage/location');
+		return Redirect::to('manage/locations');
 	}
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<a href="{{ URL::to('manage/location/create') }}">Create Location</a>
+<a href="{{ URL::to('manage/locations/create') }}">Create Location</a>
 
 <!-- will be used to show any messages -->
 @if (Session::has('message'))
@@ -31,11 +31,11 @@
 			<td>{{ $value->rows }}</td>
 			<td>{{ $value->created_at }}</td>
 			<td>
-				<a class="btn btn-small btn-success" href="{{ URL::to('manage/location/' . $value->id) }}">Show</a>
+				<a class="btn btn-small btn-success" href="{{ URL::to('manage/locations/' . $value->id) }}">Show</a>
 
-				<a class="btn btn-small btn-info" href="{{ URL::to('manage/location/' . $value->id . '/edit') }}">Edit</a>
+				<a class="btn btn-small btn-info" href="{{ URL::to('manage/locations/' . $value->id . '/edit') }}">Edit</a>
 
-				<form class="d-inline" action="/manage/location/{{ $value->id }}/" method="post">
+				<form class="d-inline" action="/manage/locations/{{ $value->id }}/" method="post">
 					@csrf
 					@method('DELETE')
 					<input type="submit" value="Delete" class="btn btn-small btn-danger">

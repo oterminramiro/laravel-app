@@ -8,7 +8,7 @@
 		{{ $error }}
 	@endforeach
 
-	<form method="post" action="/manage/location/{{ $location->id }}/">
+	<form method="post" action="/manage/locations/{{ $location->id }}/">
 		@method('PUT')
 		@csrf
 		<div class="form-group">

@@ -33,7 +33,7 @@ class OrganizationController extends Controller
 
 		if ($validator->fails())
 		{
-			return Redirect::to('manage/organization/create')->withErrors($validator);
+			return Redirect::to('manage/organizations/create')->withErrors($validator);
 		}
 		else
 		{
@@ -43,7 +43,7 @@ class OrganizationController extends Controller
 			$organization->save();
 
 			Session::flash('message', 'Successfully created organization!');
-			return Redirect::to('manage/organization');
+			return Redirect::to('manage/organizations');
 		}
 	}
 
@@ -70,7 +70,7 @@ class OrganizationController extends Controller
 
 		if ($validator->fails())
 		{
-			return Redirect::to('manage/organization/' . $id . '/edit')->withErrors($validator);
+			return Redirect::to('manage/organizations/' . $id . '/edit')->withErrors($validator);
 		}
 		else
 		{
@@ -79,7 +79,7 @@ class OrganizationController extends Controller
 			$organization->save();
 
 			Session::flash('message', 'Successfully updated organization!');
-			return Redirect::to('manage/organization');
+			return Redirect::to('manage/organizations');
 		}
 	}
 
@@ -89,6 +89,6 @@ class OrganizationController extends Controller
 		$organization->delete();
 
 		Session::flash('message', 'Successfully deleted the organization!');
-		return Redirect::to('manage/organization');
+		return Redirect::to('manage/organizations');
 	}
 }

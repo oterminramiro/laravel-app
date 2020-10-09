@@ -2,7 +2,7 @@
 
 @section('content')
 
-<a href="{{ URL::to('manage/organization/create') }}">Create Organization</a>
+<a href="{{ URL::to('manage/organizations/create') }}">Create Organization</a>
 
 <!-- will be used to show any messages -->
 @if (Session::has('message'))
@@ -27,11 +27,11 @@
 			<td>{{ $value->guid }}</td>
 			<td>{{ $value->created_at }}</td>
 			<td>
-				<a class="btn btn-small btn-success" href="{{ URL::to('manage/organization/' . $value->id) }}">Show</a>
+				<a class="btn btn-small btn-success" href="{{ URL::to('manage/organizations/' . $value->id) }}">Show</a>
 
-				<a class="btn btn-small btn-info" href="{{ URL::to('manage/organization/' . $value->id . '/edit') }}">Edit</a>
+				<a class="btn btn-small btn-info" href="{{ URL::to('manage/organizations/' . $value->id . '/edit') }}">Edit</a>
 
-				<form class="d-inline" action="/manage/organization/{{ $value->id }}/" method="post">
+				<form class="d-inline" action="/manage/organizations/{{ $value->id }}/" method="post">
 					@csrf
 					@method('DELETE')
 					<input type="submit" value="Delete" class="btn btn-small btn-danger">

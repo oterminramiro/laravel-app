@@ -32,9 +32,9 @@
 			<td>{{ $value->available }}</td>
 			<td>{{ $value->created_at }}</td>
 			<td>
-				<a class="btn btn-small btn-success" href="{{ URL::to('manage/layout/' . $value->id) }}">Show</a>
+				<a class="btn btn-small btn-success" href="{{ URL::to('manage/layouts/' . $value->id) }}">Show</a>
 
-				<a class="btn btn-small btn-info" href="{{ URL::to('manage/layout/' . $value->id . '/edit') }}">Edit</a>
+				<a class="btn btn-small btn-info" href="{{ URL::to('manage/layouts/' . $value->id . '/edit') }}">Edit</a>
 			</td>
 		</tr>
 	@endforeach
