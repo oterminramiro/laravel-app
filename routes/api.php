@@ -20,6 +20,7 @@ use App\Http\Controllers\MainController;
 Route::group(['prefix' => 'customers'], function(){
 	Route::get('/index', [CustomerController::class, 'index']);
 	Route::post('/create', [CustomerController::class, 'create']);
+	Route::post('/login', [CustomerController::class, 'login']);
 });
 
 Route::group(['prefix' => 'main'], function(){
