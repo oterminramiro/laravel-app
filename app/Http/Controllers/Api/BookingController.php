@@ -8,10 +8,12 @@ use App\Models\Layout;
 use App\Models\Booking;
 use App\Models\BookingLayout;
 use App\Models\Customer;
+use App\Mail\ConfirmEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -72,6 +74,13 @@ class BookingController extends Controller
 			}
 
 			DB::commit();
+
+			$data = [
+				'organization' => $Location->Organization->name,
+				'location' => $Location->name,
+			];
+
+			Mail::to('ramiro@cubiq.digital')->send(new ConfirmEmail($data));
 
 			return response()->json([
 				'success' => 'true',
