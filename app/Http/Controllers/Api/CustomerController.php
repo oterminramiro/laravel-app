@@ -99,7 +99,7 @@ class CustomerController extends Controller
 
 						return response()->json([
 							'success' => 'true',
-							'msg' => $jwt,
+							'token' => $jwt,
 						]);
 					}
 					else

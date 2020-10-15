@@ -22,15 +22,15 @@ Route::group(['prefix' => 'customers'], function(){
 	Route::get('/index', [CustomerController::class, 'index']);
 	Route::post('/create', [CustomerController::class, 'create']);
 	Route::post('/login', [CustomerController::class, 'login']);
-	Route::post('/edit', [CustomerController::class, 'edit'])->middleware('jwt_token');;
+	Route::post('/edit', [CustomerController::class, 'edit'])->middleware('jwt_token');
 });
 
-Route::group(['prefix' => 'main'], function(){
+Route::group(['prefix' => 'main', 'middleware' => ['jwt_token'] ], function(){
 	Route::get('/get_organizations', [MainController::class, 'get_organizations']);
 	Route::get('/get_locations', [MainController::class, 'get_locations']);
 	Route::post('/get_layouts', [MainController::class, 'get_layouts']);
 });
 
-Route::group(['prefix' => 'bookings'], function(){
+Route::group(['prefix' => 'bookings', 'middleware' => ['jwt_token'] ], function(){
 	Route::post('/create', [BookingController::class, 'create']);
 });
