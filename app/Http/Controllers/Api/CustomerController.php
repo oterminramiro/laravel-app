@@ -7,6 +7,7 @@ use App\Models\CustomerCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Twilio\Rest\Client;
+use \Firebase\JWT\JWT;
 
 class CustomerController extends Controller
 {
@@ -82,9 +83,23 @@ class CustomerController extends Controller
 				{
 					if($CustomerCode->code == $request->input('code'))
 					{
+						$t = time();
+						$payload = array(
+							"iss" => '',
+							"iat" => $t,
+							"nbf" => $t,
+							"exp" => $t + 31536000,
+							"aud" => "api_user",
+							"data" => array(
+								"guid" => $customer->guid,
+								"phone" => $customer->phone
+							)
+						);
+						$jwt = JWT::encode($payload, getenv("JWT_SECRET"));
+
 						return response()->json([
 							'success' => 'true',
-							'msg' => 'TOKEN',
+							'msg' => $jwt,
 						]);
 					}
 					else
@@ -118,6 +133,28 @@ class CustomerController extends Controller
 				'msg' => $e->getMessage(),
 			]);
 		}
+	}
 
+	public function edit(Request $request)
+	{
+		try
+		{
+			$jwt = $request->header('x-auth-token');
+
+			$decodedToken = JWT::decode($jwt, getenv("JWT_SECRET"), array(getenv("JWT_ENC_TYPE")));
+			$customer = Customer::where('guid',$decodedToken->data->guid)->first();
+
+			return response()->json([
+				'success' => 'true',
+				'msg' => $customer,
+			]);
+		}
+		catch (\Exception $e)
+		{
+			return response()->json([
+				'success' => 'false',
+				'msg' => $e->getMessage(),
+			]);
+		}
 	}
 }

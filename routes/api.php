@@ -22,6 +22,7 @@ Route::group(['prefix' => 'customers'], function(){
 	Route::get('/index', [CustomerController::class, 'index']);
 	Route::post('/create', [CustomerController::class, 'create']);
 	Route::post('/login', [CustomerController::class, 'login']);
+	Route::post('/edit', [CustomerController::class, 'edit'])->middleware('jwt_token');;
 });
 
 Route::group(['prefix' => 'main'], function(){
