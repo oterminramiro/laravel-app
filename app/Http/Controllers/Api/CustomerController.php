@@ -28,11 +28,12 @@ class CustomerController extends Controller
 					'msg' => 'phone null',
 				]);
 			}
+			$phone = '+549' . $phone;
 			$customer = Customer::where('phone',$phone)->first();
 			if($customer == NULL)
 			{
 				$customer = new Customer;
-				$customer->phone = '+549' . $phone;
+				$customer->phone = $phone;
 				$customer->guid = Str::uuid()->toString();
 				$customer->save();
 			}
