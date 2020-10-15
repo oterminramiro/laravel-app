@@ -21,7 +21,13 @@ class CustomerController extends Controller
 		{
 
 			$phone = $request->input('phone');
-
+			if($phone == NULL)
+			{
+				return response()->json([
+					'success' => 'false',
+					'msg' => 'phone null',
+				]);
+			}
 			$customer = Customer::where('phone',$phone)->first();
 			if($customer == NULL)
 			{

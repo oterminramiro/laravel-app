@@ -44,7 +44,7 @@ class MainController extends Controller
 		$location = Location::where('guid',$request->input('guid'))->first();
 		if($location)
 		{
-			$layout = Layout::where('idlocation',$location->id)->get(['name','col','row','available','guid']);
+			$layout = Layout::where('idlocation',$location->id)->get(['name','col','row','available','guid'])->groupBy('row');
 			return response()->json([
 				'success' => 'true',
 				'data' => $layout,

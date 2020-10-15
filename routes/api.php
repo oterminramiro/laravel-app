@@ -26,5 +26,5 @@ Route::group(['prefix' => 'customers'], function(){
 Route::group(['prefix' => 'main'], function(){
 	Route::get('/get_organizations', [MainController::class, 'get_organizations']);
 	Route::get('/get_locations', [MainController::class, 'get_locations']);
-	Route::get('/get_layouts', [MainController::class, 'get_layouts']);
+	Route::post('/get_layouts', [MainController::class, 'get_layouts']);
 });
