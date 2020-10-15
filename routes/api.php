@@ -25,7 +25,7 @@ Route::group(['prefix' => 'customers'], function(){
 	Route::post('/edit', [CustomerController::class, 'edit'])->middleware('jwt_token');
 });
 
-Route::group(['prefix' => 'main', 'middleware' => ['jwt_token','cors'] ], function(){
+Route::group(['prefix' => 'main', 'middleware' => ['jwt_token'] ], function(){
 	Route::get('/get_organizations', [MainController::class, 'get_organizations']);
 	Route::post('/get_locations', [MainController::class, 'get_locations']);
 	Route::post('/get_layouts', [MainController::class, 'get_layouts']);
