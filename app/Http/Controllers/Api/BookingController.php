@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organization;
+use App\Models\Location;
+use App\Models\Layout;
 use App\Models\Booking;
 use App\Models\BookingLayout;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -15,11 +20,68 @@ class BookingController extends Controller
 	{
 		try
 		{
-			$phone = $request->input('phone');
+			$rules = array(
+				'customerid' => 'required|uuid',
+				'locationid' => 'required|uuid',
+				'people' => 'required|integer',
+				'layout' => 'required|array',
+			);
+			$validator = Validator::make($request->all(), $rules);
+			if ($validator->fails())
+			{
+				return response()->json([
+					'success' => 'false',
+					'msg' => $validator->errors(),
+				]);
+			}
 
+			$Customer = Customer::where('guid',$request->input('customerid'))->first();
+			if($Customer == NULL)
+			{
+				throw new \Exception("Customer not found");
+			}
+
+			$Location = Location::where('guid',$request->input('locationid'))->first();
+			if($Location == NULL)
+			{
+				throw new \Exception("Location not found");
+			}
+
+			DB::beginTransaction();
+
+			$Booking = new Booking;
+			$Booking->idcustomer = $Customer->id;
+			$Booking->idorganization = $Location->idorganization;
+			$Booking->idlocation = $Location->id;
+			$Booking->people = $request->input('people');
+			$Booking->save();
+
+			$layouts = $request->input('layout');
+			foreach($layouts as $layout)
+			{
+				$Layout = Layout::where('guid',$layout['layoutid'])->first();
+				if($Layout == NULL)
+				{
+					throw new \Exception("Layout not found");
+				}
+
+				$BookingLayout = new BookingLayout;
+				$BookingLayout->idbooking = $Booking->id;
+				$BookingLayout->idlayout = $Layout->id;
+				$BookingLayout->save();
+			}
+
+			DB::commit();
+
+			return response()->json([
+				'success' => 'true',
+				'msg' => 'true',
+			]);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
+			DB::rollback();
+
 			return response()->json([
 				'success' => 'false',
 				'msg' => $e->getMessage(),

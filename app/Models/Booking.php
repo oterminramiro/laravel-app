@@ -13,4 +13,14 @@ class Booking extends Eloquent
 	{
 		return $this->belongsTo('App\Models\Customer','idcustomer','id');
 	}
+
+	public function Organization()
+	{
+		return $this->belongsTo('App\Models\Organization','idorganization','id');
+	}
+
+	public function Location()
+	{
+		return $this->belongsTo('App\Models\Location','idlocation','id');
+	}
 }
