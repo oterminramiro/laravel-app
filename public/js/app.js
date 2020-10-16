@@ -1942,12 +1942,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['organization'],
+  props: ['organization', 'csrf'],
   data: function data() {
     return {};
   },
   mounted: function mounted() {
-    console.log('mounted');
+    console.log(this.csrf);
   }
 });
 
@@ -37583,7 +37583,51 @@ var render = function() {
           _vm._v(" "),
           _c("td", [_vm._v(_vm._s(value.created_at))]),
           _vm._v(" "),
-          _vm._m(1, true)
+          _c("td", [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-small btn-success",
+                attrs: { href: "/manage/organizations/" + value.id }
+              },
+              [_vm._v("Show")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-small btn-info",
+                attrs: { href: "/manage/organizations/" + value.id + "/edit" }
+              },
+              [_vm._v("Edit")]
+            ),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                staticClass: "d-inline",
+                attrs: {
+                  action: "/manage/organizations/" + value.id + "/",
+                  method: "post"
+                }
+              },
+              [
+                _c("input", {
+                  attrs: { type: "hidden", name: "_token" },
+                  domProps: { value: _vm.csrf }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  attrs: { type: "hidden", name: "_method", value: "DELETE" }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "btn btn-small btn-danger",
+                  attrs: { type: "submit", value: "Delete" }
+                })
+              ]
+            )
+          ])
         ])
       }),
       0
@@ -37607,36 +37651,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Actions")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        { staticClass: "btn btn-small btn-success", attrs: { href: "#" } },
-        [_vm._v("Show")]
-      ),
-      _vm._v(" "),
-      _c("a", { staticClass: "btn btn-small btn-info", attrs: { href: "#" } }, [
-        _vm._v("Edit")
-      ]),
-      _vm._v(" "),
-      _c(
-        "form",
-        {
-          staticClass: "d-inline",
-          attrs: { action: "/manage/organizations/id/", method: "post" }
-        },
-        [
-          _c("input", {
-            staticClass: "btn btn-small btn-danger",
-            attrs: { type: "submit", value: "Delete" }
-          })
-        ]
-      )
     ])
   }
 ]

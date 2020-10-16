@@ -9,6 +9,6 @@
 	<div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
 
-<crud-component :organization="{{ $organization }}"></crud-component>
+<crud-component :organization="{{ $organization }}" csrf="{{csrf_token()}}"></crud-component>
 
 @endsection

@@ -17,12 +17,12 @@
 				<td>{{ value.guid }}</td>
 				<td>{{ value.created_at }}</td>
 				<td>
-					<a class="btn btn-small btn-success" href="#">Show</a>
+					<a class="btn btn-small btn-success" :href="'/manage/organizations/' + value.id">Show</a>
+					<a class="btn btn-small btn-info" :href="'/manage/organizations/'+ value.id +'/edit'">Edit</a>
 
-					<a class="btn btn-small btn-info" href="#">Edit</a>
-
-					<form class="d-inline" action="/manage/organizations/id/" method="post">
-
+					<form class="d-inline" :action="'/manage/organizations/' + value.id +'/'" method="post">
+						<input type="hidden" name="_token" :value="csrf">
+						<input type="hidden" name="_method" value="DELETE">
 						<input type="submit" value="Delete" class="btn btn-small btn-danger">
 					</form>
 				</td>
@@ -33,14 +33,13 @@
 
 <script>
 	export default {
-		props: ['organization'],
+		props: ['organization','csrf'],
 		data() {
-	        return {
-	        }
-	    },
-		mounted() {
-			console.log('mounted');
+			return {
+			}
 		},
-
+		mounted() {
+			console.log(this.csrf);
+		},
 	}
 </script>
