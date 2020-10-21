@@ -27,6 +27,7 @@ class BookingController extends Controller
 				'locationid' => 'required|uuid',
 				'people' => 'required|integer',
 				'layout' => 'required|array',
+				'date' => 'required|date_format:Y-m-d H:i:s'
 			);
 			$validator = Validator::make($request->all(), $rules);
 			if ($validator->fails())
@@ -56,6 +57,7 @@ class BookingController extends Controller
 			$Booking->idorganization = $Location->idorganization;
 			$Booking->idlocation = $Location->id;
 			$Booking->people = $request->input('people');
+			$Booking->date = $request->input('date');
 			$Booking->save();
 
 			$layouts = $request->input('layout');
