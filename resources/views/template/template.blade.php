@@ -45,7 +45,7 @@
 
 						@if ( Helper::checkRole(['ADMIN','MANAGER']) )
 							<!-- <example-component></example-component> -->
-							
+
 							{!! Helper::shout('this is how to use autoloading correctly!!') !!}
 						@else
 							<span>else</span>
@@ -74,11 +74,9 @@
 		<!-- Vendor js -->
 		<script src="/assets/themes/app/js/vendor.min.js"></script>
 		<!-- SWEET ALERT-->
-		<script src="/assets/vendor/sweetalert/sweetalert.min.js"></script>
+		<!-- <script src="/assets/vendor/sweetalert/sweetalert.min.js"></script> -->
 		<!-- App js -->
 		<script src="/assets/themes/app/js/app.min.js"></script>
-		<!-- Vue js -->
-		<script src="{{ asset('js/app.js') }}"></script>
 
 		@yield('js')
 	</body>

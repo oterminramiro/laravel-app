@@ -13,3 +13,8 @@
 	</div>
 
 @endsection
+
+@section('js')
+<!-- Vue js -->
+<script src="{{ asset('js/app.js') }}"></script>
+@endsection
