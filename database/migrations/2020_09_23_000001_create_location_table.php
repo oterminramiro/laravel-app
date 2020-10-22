@@ -20,6 +20,8 @@ class CreateLocationTable extends Migration
 			$table->integer('cols');
 			$table->integer('rows');
 			$table->uuid('guid');
+			$table->time('since',0);
+			$table->time('until',0);
 			$table->timestamps();
 		});
 

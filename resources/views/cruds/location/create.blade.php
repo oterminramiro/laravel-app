@@ -26,6 +26,14 @@
 			<label>Rows</label>
 			<input type="text" class="form-control" name="rows" id="rows">
 		</div>
+		<div class="form-group">
+			<label>Since</label>
+			<input type="time" class="form-control" name="since" id="since">
+		</div>
+		<div class="form-group">
+			<label>Until</label>
+			<input type="time" class="form-control" name="until" id="until">
+		</div>
 
 		<input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
 	</form>

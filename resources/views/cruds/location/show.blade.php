@@ -2,13 +2,17 @@
 
 @section('content')
 
-	<h1>Showing {{ $organization->name }}</h1>
+	<h1>Showing {{ $location->name }}</h1>
 
 	<div class="jumbotron text-center">
-		<h2>{{ $organization->name }}</h2>
+		<h2>{{ $location->name }}</h2>
 		<p>
-			<strong>Guid:</strong> {{ $organization->guid }}<br>
-			<strong>Created:</strong> {{ $organization->created_at }}
+			<strong>Guid:</strong> {{ $location->guid }}<br>
+			<strong>Cols:</strong> {{ $location->cols }}<br>
+			<strong>Rows:</strong> {{ $location->rows }}<br>
+			<strong>Since:</strong> {{ $location->since }}<br>
+			<strong>Until:</strong> {{ $location->until }}<br>
+			<strong>Created:</strong> {{ $location->created_at }}
 		</p>
 	</div>
 

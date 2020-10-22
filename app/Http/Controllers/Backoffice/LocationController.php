@@ -29,9 +29,11 @@ class LocationController extends Controller
 	{
 		$rules = array(
 			'name' => 'required',
-			'idorganization' => 'required',
-			'cols' => 'required',
-			'rows' => 'required',
+			'idorganization' => 'required|integer',
+			'cols' => 'required|integer',
+			'rows' => 'required|integer',
+			'since' => 'required|date_format:H:i',
+			'until' => 'required|date_format:H:i',
 		);
 		$validator = Validator::make($request->all(), $rules);
 
@@ -46,6 +48,8 @@ class LocationController extends Controller
 			$location->idorganization = $request->input('idorganization');
 			$location->cols = $request->input('cols');
 			$location->rows = $request->input('rows');
+			$location->since = $request->input('since');
+			$location->until = $request->input('until');
 			$location->guid = Str::uuid()->toString();
 			$location->save();
 
@@ -85,7 +89,8 @@ class LocationController extends Controller
 	public function update(Request $request, $id)
 	{
 		$rules = array(
-			'name' => 'required',
+			'since' => 'date_format:H:i',
+			'until' => 'date_format:H:i',
 		);
 		$validator = Validator::make($request->all(), $rules);
 
@@ -96,7 +101,18 @@ class LocationController extends Controller
 		else
 		{
 			$location = Location::find($id);
-			$location->name = $request->input('name');
+			if($request->input('name') != NULL)
+			{
+				$location->name = $request->input('name');
+			}
+			if($request->input('since') != NULL)
+			{
+				$location->since = $request->input('since');
+			}
+			if($request->input('until') != NULL)
+			{
+				$location->until = $request->input('until');
+			}
 			$location->save();
 
 			Session::flash('message', 'Successfully updated location!');
