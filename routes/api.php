@@ -29,6 +29,7 @@ Route::group(['prefix' => 'main', 'middleware' => ['jwt_token'] ], function(){
 	Route::get('/get_organizations', [MainController::class, 'get_organizations']);
 	Route::post('/get_locations', [MainController::class, 'get_locations']);
 	Route::post('/get_layouts', [MainController::class, 'get_layouts']);
+	Route::post('/get_time', [MainController::class, 'get_time']);
 });
 
 Route::group(['prefix' => 'bookings', 'middleware' => ['jwt_token'] ], function(){
