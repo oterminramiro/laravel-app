@@ -26,7 +26,6 @@ class CreateBooking extends Migration
                   ->on('location')
                   ->onDelete('cascade');
             $table->integer('people');
-            $table->integer('people');
 			$table->timestamp('date', 0);
             $table->timestamps();
         });
